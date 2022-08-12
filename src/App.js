@@ -8,6 +8,7 @@ import {
   BODY_COLOR,
   customColor
 } from "./utils/globalVar.js"
+import { CreatorWrapper, WrapIcons, GitHubIconStyled, LinkedinIconStyled } from "./styled/AppStyled.js"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
@@ -20,6 +21,7 @@ const WrapAll = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 105vh;
+  text-align:center;
 `
 
 const ContainerTextArea = styled.div`
@@ -55,6 +57,7 @@ const Header = styled.div`
 
   & > h2 {
     margin-left: 10px;
+    text-align: center;
   }
 
   & > div {
@@ -171,77 +174,97 @@ function App() {
   }
 
   return (
-    <WrapAll>
-      <h1>Markdown live editor</h1>
-      <>
-        <ContainerTextArea
-          expandedTextArea={expandTextArea}
-          hasToHidden={expandPreviewer}
-        >
-          <Header expanded={expandTextArea}>
-            <MarkdownLogoStyled expanded={expandTextArea} />
-            <h2>Start type text in the box below</h2>
-            <div onClick={handleClickTextArea}>
-              {expandTextArea ? (
-                <MinimizeIconStyled expanded={expandTextArea} />
-              ) : (
-                <ExpandIcon />
-              )}
-            </div>
-          </Header>
-          <BodyStyleTextArea
-            onChange={handleChanges}
-            placeholder={"Write some text here"}
-            expanded={expandTextArea}
-          />
-        </ContainerTextArea>
-      </>
-      <>
-        <ContainerPreviwer
-          expanded={expandPreviewer}
-          hasToHidden={expandTextArea}
-        >
-          <Header expanded={expandPreviewer}>
-            <MarkdownLogoStyled expanded={expandPreviewer} />
-            <h2>Previewer</h2>
-            <div onClick={handleClickPreviewer}>
-              {expandPreviewer ? (
-                <MinimizeIconStyled expanded={expandPreviewer} />
-              ) : (
-                <ExpandIcon />
-              )}
-            </div>
-          </Header>
-          <BodyStylePreviewer expanded={expandPreviewer}>
-            <div>
-              {/* <ReactMarkdown children={textArea} remarkPlugins={[remarkGfm]} /> */}
-              <ReactMarkdown
-                
-                children={textArea}
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  code({ node, inline, className, children, ...props }) {
-                    const match = /language-(\w+)/.exec(className || "")
-                    return !inline && match ? (
-                      <SyntaxHighlighter
-                        children={String(children).replace(/\n$/, "")}
-                        style={dark}
-                        language={match[1]}
-                        PreTag="div"
-                        className="ReactMarkdown"
-                        {...props}
-                      />
-                    ) : (
-                      <code className={className} {...props}>{children}</code>
-                    )
-                  }
-                }}
-              />
-            </div>
-          </BodyStylePreviewer>
-        </ContainerPreviwer>
-      </>
-    </WrapAll>
+    <>
+
+      <WrapAll>
+
+        <h1>Markdown live editor</h1>
+        <CreatorWrapper>
+          <h2>By <span>Juan Pastén Castillo</span></h2>
+          <WrapIcons>
+            <a href="https://github.com/JuanPastenCastillo"
+              target="blank"
+              rel="noreferrer">
+              <GitHubIconStyled />
+            </a>
+            <a href="https://www.linkedin.com/in/juanpastencastillo/"
+              target="blank"
+              rel="noreferrer">
+              <LinkedinIconStyled />
+            </a>
+          </WrapIcons>
+        </CreatorWrapper>
+        <>
+          <ContainerTextArea
+            expandedTextArea={expandTextArea}
+            hasToHidden={expandPreviewer}
+          >
+            <Header expanded={expandTextArea}>
+              <MarkdownLogoStyled expanded={expandTextArea} />
+              <h2> Type text below</h2>
+              <div onClick={handleClickTextArea}>
+                {expandTextArea ? (
+                  <MinimizeIconStyled expanded={expandTextArea} />
+                ) : (
+                  <ExpandIcon />
+                )}
+              </div>
+            </Header>
+            <BodyStyleTextArea
+              onChange={handleChanges}
+              placeholder={"Write some text here"}
+              expanded={expandTextArea}
+            />
+          </ContainerTextArea>
+        </>
+        <>
+          <ContainerPreviwer
+            expanded={expandPreviewer}
+            hasToHidden={expandTextArea}
+          >
+            <Header expanded={expandPreviewer}>
+              <MarkdownLogoStyled expanded={expandPreviewer} />
+              <h2>Previewer</h2>
+              <div onClick={handleClickPreviewer}>
+                {expandPreviewer ? (
+                  <MinimizeIconStyled expanded={expandPreviewer} />
+                ) : (
+                  <ExpandIcon />
+                )}
+              </div>
+            </Header>
+            <BodyStylePreviewer expanded={expandPreviewer}>
+              <div>
+                {/* <ReactMarkdown children={textArea} remarkPlugins={[remarkGfm]} /> */}
+                <ReactMarkdown
+
+                  children={textArea}
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    code({ node, inline, className, children, ...props }) {
+                      const match = /language-(\w+)/.exec(className || "")
+                      return !inline && match ? (
+                        <SyntaxHighlighter
+                          children={String(children).replace(/\n$/, "")}
+                          style={dark}
+                          language={match[1]}
+                          PreTag="div"
+                          className="ReactMarkdown"
+                          {...props}
+                        />
+                      ) : (
+                        <code className={className} {...props}>{children}</code>
+                      )
+                    }
+                  }}
+                />
+              </div>
+            </BodyStylePreviewer>
+          </ContainerPreviwer>
+        </>
+      </WrapAll>
+
+    </>
   )
 }
 
