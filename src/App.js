@@ -8,7 +8,12 @@ import {
   BODY_COLOR,
   customColor
 } from "./utils/globalVar.js"
-import { CreatorWrapper, WrapIcons, GitHubIconStyled, LinkedinIconStyled } from "./styled/AppStyled.js"
+import {
+  CreatorWrapper,
+  WrapIcons,
+  GitHubIconStyled,
+  LinkedinIconStyled
+} from "./styled/AppStyled.js"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
@@ -21,7 +26,10 @@ const WrapAll = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 105vh;
-  text-align:center;
+`
+
+const H1 = styled.h1`
+  text-align: center;
 `
 
 const ContainerTextArea = styled.div`
@@ -138,21 +146,20 @@ const BodyStylePreviewer = styled.div`
   & > div > p > code {
     background-color: grey;
     /* margin:10px; */
-    padding:3px;
+    padding: 3px;
   }
-  
-  & > div > blockquote{
+
+  & > div > blockquote {
     border-left: 5px ${customColor(5)} solid;
     padding-left: 5px;
-    
   }
-  & > div > blockquote > p{
+  & > div > blockquote > p {
     white-space: pre-wrap;
   }
-  
-  
-  & > div > table, div>table * {
-    border:1px solid black;
+
+  & > div > table,
+  div > table * {
+    border: 1px solid black;
   }
 `
 
@@ -175,21 +182,25 @@ function App() {
 
   return (
     <>
-
       <WrapAll>
-
-        <h1>Markdown live editor</h1>
+        <H1>Markdown live editor</H1>
         <CreatorWrapper>
-          <h2>By <span>Juan Pastén Castillo</span></h2>
+          <h2>
+            By <span>Juan Pastén Castillo</span>
+          </h2>
           <WrapIcons>
-            <a href="https://github.com/JuanPastenCastillo"
+            <a
+              href="https://github.com/JuanPastenCastillo"
               target="blank"
-              rel="noreferrer">
+              rel="noreferrer"
+            >
               <GitHubIconStyled />
             </a>
-            <a href="https://www.linkedin.com/in/juanpastencastillo/"
+            <a
+              href="https://www.linkedin.com/in/juanpastencastillo/"
               target="blank"
-              rel="noreferrer">
+              rel="noreferrer"
+            >
               <LinkedinIconStyled />
             </a>
           </WrapIcons>
@@ -237,7 +248,6 @@ function App() {
               <div>
                 {/* <ReactMarkdown children={textArea} remarkPlugins={[remarkGfm]} /> */}
                 <ReactMarkdown
-
                   children={textArea}
                   remarkPlugins={[remarkGfm]}
                   components={{
@@ -253,7 +263,9 @@ function App() {
                           {...props}
                         />
                       ) : (
-                        <code className={className} {...props}>{children}</code>
+                        <code className={className} {...props}>
+                          {children}
+                        </code>
                       )
                     }
                   }}
@@ -263,7 +275,6 @@ function App() {
           </ContainerPreviwer>
         </>
       </WrapAll>
-
     </>
   )
 }
