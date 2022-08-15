@@ -25,23 +25,11 @@ const WrapAll = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 105vh;
+  min-height: 113vh;
 `
 
 const H1 = styled.h1`
   text-align: center;
-`
-
-const ContainerTextArea = styled.div`
-  display: ${(x) => (x.hasToHidden ? "none" : "flex")};
-  background-color: ${HEADER_COLOR};
-  color: black;
-  width: 75vw;
-  flex-direction: column;
-  border-radius: 5px;
-  border: 1px black solid;
-  height: ${(x) => (x.expandedTextArea ? "95vh" : "null")};
-  min-height: 200px;
 `
 const ContainerPreviwer = styled.div`
   display: ${(x) => (x.hasToHidden ? "none" : "flex")};
@@ -55,6 +43,23 @@ const ContainerPreviwer = styled.div`
   margin-bottom: 15px;
   height: ${(x) => (x.expanded ? "auto" : "100%")};
   min-height: 100%;
+  
+  
+  
+  
+`
+
+const ContainerTextArea = styled.div`
+  display: ${(x) => (x.hasToHidden ? "none" : "flex")};
+  background-color: ${HEADER_COLOR};
+  color: black;
+  width: 75vw;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px black solid;
+  height: ${(x) => (x.expanded ? "100%" : "100%")};
+  /* min-height: 95vh; */
+  
 `
 
 const Header = styled.div`
@@ -62,6 +67,7 @@ const Header = styled.div`
   border-bottom: 3px ${customColor(20, true)} solid;
   align-items: center;
   height: 65px;
+  
 
   & > h2 {
     margin-left: 10px;
@@ -99,15 +105,15 @@ const MarkdownLogoStyled = styled(MarkdownLogo)`
 
 const BodyStyleTextArea = styled.textarea`
   background-color: ${BODY_COLOR};
-  height: 100%;
+  /* height: 100%; */
   color: black;
 
   margin: 0;
   padding: 10px;
   border: 0;
   resize: ${(x) => (x.expanded ? "none" : "vertical")};
-  height: ${(x) => (x.expandedTextArea ? "95vh" : "null")};
-  min-height: 200px;
+  height: ${(x) => (x.expanded ? "95vh" : "100%")};
+  min-height: ${(x) => (x.expanded ? "95vh" : "300px")};
 
   line-height: 1.7;
   font-size: 1rem;
@@ -167,7 +173,6 @@ function App() {
   const [textArea, setTextArea] = useState()
   const [expandTextArea, setExpandTextArea] = useState(false)
   const [expandPreviewer, setExpandPreviewer] = useState(false)
-  console.log("expandPreviewer:", expandPreviewer)
 
   const handleClickTextArea = () => {
     setExpandTextArea(!expandTextArea)
@@ -246,7 +251,6 @@ function App() {
             </Header>
             <BodyStylePreviewer expanded={expandPreviewer}>
               <div>
-                {/* <ReactMarkdown children={textArea} remarkPlugins={[remarkGfm]} /> */}
                 <ReactMarkdown
                   children={textArea}
                   remarkPlugins={[remarkGfm]}
